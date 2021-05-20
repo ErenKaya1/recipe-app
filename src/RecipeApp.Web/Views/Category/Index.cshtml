@@ -1,0 +1,51 @@
+@model System.Collections.Generic.List<RecipeApp.Entity.Entities.Category>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Kategoriler";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <a class="btn btn-primary" asp-controller="category" asp-action="new">Yeni Ekle</a>
+    </div>
+</div>
+
+@if (TempData["CategoryCreated"] != null)
+{
+    <div class="alert alert-success">@TempData["CategoryCreated"]</div>
+}
+
+@if (TempData["CategoryNotFound"]  != null)
+{
+    <div class="alert alert-danger">@TempData["CategoryNotFound"] </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-warning">Henüz kategori eklemediniz.</div>
+}
+else
+{
+    <table class="table table-bordered category-table">
+        <thead>
+            <tr class="bg-primary text-light">
+                <th>Kategori Adı</th>
+                <th class="options-column">Seçenekler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr data-row="@category.Id">
+                    <td>@category.Name</td>
+                    <td class="options-column">
+                        <a class="btn btn-sm btn-info" asp-controller="category" asp-action="edit"
+                    asp-route-categoryId="@category.Id">Düzenle</a>
+                        <a class="btn btn-sm btn-danger delete-category" data-id="@category.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

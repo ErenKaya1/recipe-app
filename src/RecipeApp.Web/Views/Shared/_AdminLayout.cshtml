@@ -1,0 +1,111 @@
+@using RecipeApp.Entity.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<User> _userManager
+
+@{
+    var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+    var isAdmin = await _userManager.IsInRoleAsync(currentUser, "admin");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
+    <link rel="stylesheet" href="/css/style.css" asp-append-version="true">
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a asp-controller="Dashboard" asp-action="Index" class="brand-link">
+                <span class="brand-text font-weight-light">Recipe App</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a asp-controller="user" asp-action="updateprofile"
+                            class="d-block current-user">@User.Identity.Name</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="moderator" asp-action="index" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>Moderatör Yönetimi</p>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="recipe" asp-action="index" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>Tarifler</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="category" asp-action="index" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>Kategoriler</p>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a asp-controller="user" asp-action="updateprofile" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Hesap Güncelle</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="user" asp-action="changepassword" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Parola Değiştir</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="user" asp-action="logout" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Çıkış</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @RenderSection("Scripts", false)
+    <script src="/js/site.js" asp-append-version="true"></script>
+</body>
+
+</html>

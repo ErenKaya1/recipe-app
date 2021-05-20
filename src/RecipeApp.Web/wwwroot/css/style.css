@@ -1,0 +1,41 @@
+.auth-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+}
+
+.auth-form {
+  width: 20%;
+  margin: auto;
+}
+
+.content-wrapper {
+  padding: 20px;
+}
+
+.moderator-table .options-column {
+  width: 5%;
+  text-align: center;
+}
+
+.category-table .options-column,
+.recipe-table .options-column {
+  width: 20%;
+  text-align: center;
+}
+
+.img-preview-container .img-preview {
+  width: 400px;
+}
+
+@media (max-width: 992px) {
+  .auth-form {
+    width: 40%;
+  }
+}
+
+@media (max-width: 512px) {
+  .auth-form {
+    width: 60%;
+  }
+}

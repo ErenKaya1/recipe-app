@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - 5001:80
+    depends_on:
+      - postgresql
+      - mongodb
+    restart: always
+
+  postgresql:
+    image: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - /postgresdb:/var/lib/postgresql/data
+    restart: always
+
+  mongodb:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - /mongodb:/data/db
+    restart: always
+
+volumes:
+  postgresdb:
+  mongodb:

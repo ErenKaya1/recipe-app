@@ -1,0 +1,38 @@
+@model System.Collections.Generic.List<RecipeApp.Core.Models.Recipe.ListRecipeModel>
+
+@{
+    ViewData["Title"] = "Tarifler";
+}
+
+<section id="items">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Tarifler</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var recipe in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 wow fadeIn">
+                    <div class="recipe-item text-center">
+                        <a href="/detaylar/@recipe.Slug">
+                            <img src="/image/recipe/@recipe.ImageName" alt="bbq-pork-ribs" />
+                        </a>
+                        <br />
+                        <h3>@recipe.Title</h3>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="row wow rollIn">
+        <div class="col-12 text-center">
+            <a asp-controller="home" asp-action="index">
+                <i class="fa fa-backward" aria-hidden="true"></i>
+                Anasayfaya Dön.
+            </a>
+        </div>
+    </div>
+</section>

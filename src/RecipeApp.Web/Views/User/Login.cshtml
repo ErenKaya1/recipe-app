@@ -1,0 +1,32 @@
+@model RecipeApp.Core.Models.User.LoginModel
+
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Giriş Yap";
+}
+
+@if (ViewData["InvalidCredentials"] != null)
+{
+    <div class="alert alert-danger">@ViewData["InvalidCredentials"]</div>
+}
+
+<form asp-controller="User" asp-action="Login" method="POST" asp-antiforgery="true">
+    <div class="form-group">
+        <label class="form-label" asp-for="Username"></label>
+        <input class="form-control" asp-for="Username">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="Password"></label>
+        <input class="form-control" asp-for="Password">
+    </div>
+
+    <label class="form-label" asp-for="IsPersistent"></label>
+    <input asp-for="IsPersistent">
+
+    <div class="form-row">
+        <div class="col-1">
+            <button type="submit" class="btn btn-primary">Giriş</button>
+        </div>
+    </div>
+</form>

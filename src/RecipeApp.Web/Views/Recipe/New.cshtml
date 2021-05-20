@@ -1,0 +1,73 @@
+@model RecipeApp.Core.Models.Recipe.NewRecipeModel
+@using RecipeApp.Service.Contracts
+@inject ICategoryService _categoryService
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Yeni Tarif";
+
+    var categories = _categoryService.GetAll();
+}
+
+<h4 class="font-weight-bold py-3 mb-4">Yeni Tarif</h4>
+
+<form asp-controller="recipe" asp-action="new" method="POST" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" required>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-3 col-6 form-group">
+            <label asp-for="Difficulty" class="form-label"></label>
+            <input asp-for="Difficulty" class="form-control" required>
+        </div>
+        <div class="col-md-3 col-6 form-group">
+            <label asp-for="Time" class="form-label"></label>
+            <input asp-for="Time" class="form-control" required>
+        </div>
+        <div class="col-md-3 col-6 form-group">
+            <label asp-for="Servings" class="form-label"></label>
+            <input asp-for="Servings" class="form-control" required>
+        </div>
+        <div class="col-md-3 col-6 form-group">
+            <label asp-for="CategoryId" class="form-label"></label>
+            <select asp-for="CategoryId" class="form-control" required>
+                @foreach (var category in categories.Data)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ingredients" class="form-label"></label>
+        <textarea rows="4" class="form-control" asp-for="Ingredients" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Directions" class="form-label"></label>
+        <textarea rows="4" class="form-control" asp-for="Directions" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OnHomepage" class="form-label"></label>
+        <input asp-for="OnHomepage" class="ml-2">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageFile" class="form-label"></label>
+        <input asp-for="ImageFile" class="form-control">
+    </div>
+
+    <div class="row mb-2 img-preview-container d-none">
+        <div class="col-12">
+            <img class="img-preview">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-controller="recipe" asp-action="index" class="ml-2">Listeye Dön</a>
+</form>

@@ -1,0 +1,98 @@
+@model RecipeApp.Entity.Entities.Recipe
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section id="recipe">
+    <div class="container">
+        <div class="row">
+            <!-- Title -->
+            <div class="col-12">
+                <h2>@Model.Title</h2>
+            </div>
+        </div>
+        <div class="row vertical-align">
+            <div class="col-12">
+                <div class="row">
+                    <!-- Picture -->
+                    <div class="col-md-8 pull-left wow swing">
+                        <img src="/image/recipe/@Model.ImageName" alt="bbq-pork-ribs" class="recipe-picture" />
+                    </div>
+                    <!-- Info -->
+                    <div class="col-md-4 pull-right wow lightSpeedIn">
+                        <div class="recipe-info">
+                            <h3>Bilgiler</h3>
+                            <!-- Time -->
+                            <div class="row">
+                                <div class="col-2 text-center">
+                                    <i class="fas fa-clock" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-6">Süre</div>
+                                <div class="col-4">@Model.Time dk.</div>
+                            </div>
+                            <!-- Difficulty -->
+                            <div class="row">
+                                <div class="col-2 text-center">
+                                    <i class="fas fa-chart-area" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-6">Zorluk</div>
+                                <div class="col-4">
+                                    @for (int i = 0; i < Model.Difficulty; i++)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                </div>
+                            </div>
+                            <!-- Serves -->
+                            <div class="row">
+                                <div class="col-2 text-center">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-6">Porsiyon</div>
+                                <div class="col-4">@Model.Servings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ingredients -->
+        <div class="row wow slideInUp">
+            <div class="col-7">
+                <div class="recipe-ingredients">
+                    <h3>Malzemeler</h3>
+                    <dl class="ingredients-list">
+                        @foreach (var ingredient in Model.Ingredients)
+                        {
+                            <dd>@ingredient</dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <!-- Directions -->
+        <div class="row wow slideInUp">
+            <div class="col-12">
+                <div class="recipe-directions">
+                    <h3>Hazırlanış</h3>
+                    <ol>
+                        @foreach (var direction in Model.Directions)
+                        {
+                            <li>@direction</li>
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row wow rollIn">
+            <div class="col-12 text-center">
+                <a asp-controller="home" asp-action="index">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                    Anasayfaya Dön.
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RecipeApp.Data\RecipeApp.Data.csproj" />
+    <ProjectReference Include="..\RecipeApp.Core\RecipeApp.Core.csproj" />
+    <ProjectReference Include="..\RecipeApp.Entity\RecipeApp.Entity.csproj" />
+    <ProjectReference Include="..\RecipeApp.Service\RecipeApp.Service.csproj" />
+    <ProjectReference Include="..\RecipeApp.Repository\RecipeApp.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.6" />
+  </ItemGroup>
+
+</Project>

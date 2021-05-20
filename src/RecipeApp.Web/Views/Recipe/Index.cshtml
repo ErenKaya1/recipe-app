@@ -1,0 +1,48 @@
+@model System.Collections.Generic.List<RecipeApp.Core.Models.Recipe.ListRecipeModel>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Tarifler";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <a class="btn btn-primary" asp-controller="recipe" asp-action="new">Yeni Ekle</a>
+    </div>
+</div>
+
+@if (TempData["RecipeCreated"] != null)
+{
+    <div class="alert alert-success">@TempData["RecipeCreated"]</div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-warning">Henüz tarif eklemediniz.</div>
+}
+else
+{
+    <table class="table table-bordered recipe-table">
+        <thead>
+            <tr class="bg-primary text-light">
+                <th>Başlık</th>
+                <th>Kategori</th>
+                <th class="options-column">Seçenekler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in Model)
+            {
+                <tr data-row="@recipe.Id">
+                    <td>@recipe.Title</td>
+                    <td>@recipe.CategoryName</td>
+                    <td class="options-column">
+                        <a class="btn btn-sm btn-info" asp-controller="recipe" asp-action="edit"
+                    asp-route-recipeId="@recipe.Id">Düzenle</a>
+                        <a class="btn btn-sm btn-danger delete-recipe" data-id="@recipe.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

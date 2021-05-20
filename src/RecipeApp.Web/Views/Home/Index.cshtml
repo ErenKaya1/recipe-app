@@ -1,0 +1,70 @@
+﻿@using RecipeApp.Service.Contracts
+@inject ICategoryService _categoryService
+@inject IRecipeService _recipeService
+
+@{
+    ViewData["Title"] = "Anasayfa";
+
+    var categories = _categoryService.GetAll();
+    var recipes = _recipeService.GetHomepageRecipes();
+}
+
+<section id="categories">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Kategoriler</h2>
+            </div>
+        </div>
+        <div class="row wow zoomIn">
+            @foreach (var category in categories.Data)
+            {
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                    <a class="text-decoration-none" href="/kategori/@category.Slug">
+                        <div class="category-item text-center">
+                            <img src="/image/category/@category.ImageName" alt="milk" width="48" height="48" />
+                            <br />
+                            @category.Name
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="row wow zoomIn">
+            <div class="col-12 text-center show-all">
+                <a class="text-decoration-none" href="/tarifler">
+                    <div class="category-item text-center">
+                        <i class="fa fa-utensils fa-2x"></i>
+                        <br />
+                        Hepsini Göster
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="items">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Tarifler</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var recipe in recipes.Data)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12 wow fadeIn">
+                    <div class="recipe-item text-center">
+                        <a href="/detaylar/@recipe.Slug">
+                            <img src="/image/recipe/@recipe.ImageName" alt="bbq-pork-ribs" />
+                        </a>
+                        <br />
+                        <h3>@recipe.Title</h3>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
